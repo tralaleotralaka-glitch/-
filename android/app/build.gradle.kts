@@ -1,3 +1,5 @@
+import java.net.URI
+
 plugins {
     id("com.android.application")
 }
@@ -7,7 +9,7 @@ val webAppUrl = providers.gradleProperty("webAppUrl")
     .getOrElse("")
     .trim()
 val configuredUri = if (webAppUrl.isEmpty()) null else runCatching {
-    java.net.URI(webAppUrl)
+    URI(webAppUrl)
 }.getOrElse {
     throw GradleException("webAppUrl must be a valid public HTTPS URL")
 }
