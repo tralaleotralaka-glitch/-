@@ -33,14 +33,10 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Install Android platform
-        run: |
-          SDK_ROOT="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-$HOME/Android/Sdk}}"
-          SDKMANAGER="$(command -v sdkmanager)"
-          set +o pipefail
-          yes | "$SDKMANAGER" --sdk_root="$SDK_ROOT" --licenses
-          set -o pipefail
-          "$SDKMANAGER" --sdk_root="$SDK_ROOT" --install "platforms;android-35" "build-tools;35.0.0"
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: "platforms;android-35 build-tools;35.0.0"
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
