@@ -75,7 +75,9 @@ jobs:
           test -f "$APK"
           cp "$APK" dist/Sandbox-debug.apk
           ls -lh dist/
-          sha256sum dist/Sandbox-debug.apk
+          SUM=$(sha256sum dist/Sandbox-debug.apk | cut -d' ' -f1)
+          echo "SHA256: $SUM"
+          echo "::notice title=APK built::SHA256 ${SUM}, $(stat -c%s dist/Sandbox-debug.apk) bytes"
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
