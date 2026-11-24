@@ -1,0 +1,16 @@
+# Gradle / IDE
+.gradle/
+build/
+*/build/
+local.properties
+.idea/
+*.iml
+.DS_Store
+
+# Generated APK artifacts (published via GitHub Actions artifacts and Releases)
+*.apk
+*.aab
+dist/
+captures/
+.externalNativeBuild/
+.cxx/

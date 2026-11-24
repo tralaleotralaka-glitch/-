@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sandbox</string>
+    <string name="subtitle">Мини-песочница: ввод → результат → лог</string>
+    <string name="hint_input">Введите что-нибудь…</string>
+    <string name="run">Запустить</string>
+    <string name="clear">Очистить</string>
+    <string name="log_title">Лог выполнения</string>
+
+    <string name="log_ready">Sandbox готов. Введите текст и нажмите «Запустить».</string>
+    <string name="log_cleared">Лог очищен.</string>
+    <string name="log_empty">[#%1$d] Пустой ввод — попробуйте ещё раз.</string>
+    <string name="log_input">[#%1$d] Ввод: %2$s</string>
+    <string name="log_length">• длина: %1$d символов</string>
+    <string name="log_upper">• ВЕРХНИЙ РЕГИСТР: %1$s</string>
+    <string name="log_reversed">• наоборот: %1$s</string>
+
+    <string name="device_title">Окружение</string>
+    <string name="device_android">Android %1$s (API %2$d)</string>
+    <string name="device_hardware">%1$s %2$s</string>
+    <string name="device_app">%1$s, версия %2$s</string>
+</resources>
