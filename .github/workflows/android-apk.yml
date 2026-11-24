@@ -52,7 +52,7 @@ jobs:
           build_status=$?
           cat "$RUNNER_TEMP/gradle-build.log"
           if [ "$build_status" -ne 0 ]; then
-            diagnostic="$(grep -E 'FAILURE:|What went wrong:|Could not resolve|Could not find|^[[:space:]]*> |^[[:space:]]*Caused by:' "$RUNNER_TEMP/gradle-build.log" | head -n 35 | paste -sd ' ' - | sed 's/%/%25/g')"
+            diagnostic="$(grep -E 'FAILURE:|What went wrong:|Where:|A problem occurred|Could not resolve|Could not find|Unresolved reference|Compilation error|error:|Caused by:|^[[:space:]]*> |^[[:space:]]*e:' "$RUNNER_TEMP/gradle-build.log" | head -n 45 | paste -sd ' ' - | sed 's/%/%25/g')"
             if [ -z "$diagnostic" ]; then
               diagnostic="$(tail -n 20 "$RUNNER_TEMP/gradle-build.log" | paste -sd ' ' - | sed 's/%/%25/g')"
             fi
