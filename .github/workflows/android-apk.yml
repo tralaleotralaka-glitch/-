@@ -46,7 +46,16 @@ jobs:
       - name: Build APK
         env:
           WEB_APP_URL: ${{ github.event.inputs.web_app_url || vars.WEB_APP_URL || '' }}
-        run: gradle -p android assembleDebug --no-daemon -PwebAppUrl="$WEB_APP_URL"
+        run: |
+          set +e
+          gradle -p android assembleDebug --no-daemon --stacktrace -PwebAppUrl="$WEB_APP_URL" > "$RUNNER_TEMP/gradle-build.log" 2>&1
+          build_status=$?
+          cat "$RUNNER_TEMP/gradle-build.log"
+          if [ "$build_status" -ne 0 ]; then
+            summary="$(tail -n 18 "$RUNNER_TEMP/gradle-build.log" | paste -sd ' ' - | sed 's/%/%25/g')"
+            echo "::error title=Gradle build failed::$summary"
+          fi
+          exit "$build_status"
 
       - name: Prepare download
         run: |
