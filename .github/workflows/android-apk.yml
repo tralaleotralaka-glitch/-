@@ -17,7 +17,7 @@ on:
         type: string
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build-apk:
@@ -72,3 +72,15 @@ jobs:
           path: dist/nit-messenger.apk
           if-no-files-found: error
           retention-days: 30
+
+      - name: Publish direct APK download
+        if: github.ref == 'refs/heads/arena/3e8ee0f6-repo'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          APK_TAG: android-apk-latest
+        run: |
+          if gh release view "$APK_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$APK_TAG" dist/nit-messenger.apk --clobber --repo "$GITHUB_REPOSITORY"
+          else
+            gh release create "$APK_TAG" dist/nit-messenger.apk --repo "$GITHUB_REPOSITORY" --title "Нить — Android APK" --notes "Latest installable debug APK. The app needs a public HTTPS URL of the deployed messenger server on first launch." --target "$GITHUB_SHA"
+          fi

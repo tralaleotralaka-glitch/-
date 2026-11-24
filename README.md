@@ -34,7 +34,7 @@ npm run dev
 
 1. Откройте вкладку **Actions** в GitHub и выберите **Build Android APK**.
 2. Нажмите **Run workflow**. Можно указать адрес сайта в поле `web_app_url`.
-3. После успешной сборки скачайте артефакт `nit-messenger-apk` внизу страницы запуска.
+3. После успешной сборки скачайте артефакт `nit-messenger-apk` внизу страницы запуска. В рабочей ветке APK также публикуется отдельным файлом в GitHub Release: `https://github.com/tralaleotralaka-glitch/-/releases/download/android-apk-latest/nit-messenger.apk`.
 
 Если адрес не передан, приложение попросит ввести HTTPS-адрес сервера при первом запуске. Для сборки с адресом по умолчанию задайте GitHub Actions variable `WEB_APP_URL`. APK подписан debug-ключом для тестовой установки, не production-ключом Google Play.
 
