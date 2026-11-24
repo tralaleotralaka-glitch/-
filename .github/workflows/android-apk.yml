@@ -1,0 +1,63 @@
+name: Build Android APK
+
+on:
+  push:
+    paths:
+      - "android/**"
+      - "public/**"
+      - "server.js"
+      - "package.json"
+      - ".github/workflows/android-apk.yml"
+      - "README.md"
+  workflow_dispatch:
+    inputs:
+      web_app_url:
+        description: "Optional public HTTPS URL of the deployed messenger server"
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  build-apk:
+    name: Build installable debug APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android platform
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Build APK
+        env:
+          WEB_APP_URL: ${{ github.event.inputs.web_app_url || vars.WEB_APP_URL || '' }}
+        run: gradle -p android assembleDebug --no-daemon -PwebAppUrl="$WEB_APP_URL"
+
+      - name: Prepare download
+        run: |
+          mkdir -p dist
+          cp android/app/build/outputs/apk/debug/app-debug.apk dist/nit-messenger.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nit-messenger-apk
+          path: dist/nit-messenger.apk
+          if-no-files-found: error
+          retention-days: 30

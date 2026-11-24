@@ -1,0 +1,15 @@
+# Local user accounts, sessions and conversations
+/data/
+
+# Node / editor artifacts
+node_modules/
+.DS_Store
+*.log
+/downloads/
+
+# Android build output and local SDK settings
+.gradle/
+**/build/
+local.properties
+*.jks
+*.keystore
