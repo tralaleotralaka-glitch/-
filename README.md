@@ -21,13 +21,17 @@
 Workflow `Build APK` запускается автоматически:
 
 - **push** в любую ветку и **pull request** → собирается APK;
-- **тег `v*`** → APK дополнительно прикладывается к Release;
+- **тег `v*`** → APK дополнительно прикладывается к версионированному Release;
 - **Run workflow** вручную с галочкой `release` → создаётся тег `sandbox-build-N` и Release с APK.
 
-Где скачать готовый файл:
+**Прямая ссылка на свежий APK** (обновляется автоматически при каждом push):
+
+<https://github.com/tralaleotralaka-glitch/-/releases/download/sandbox-apk-latest/Sandbox-debug.apk>
+
+Где ещё скачать готовый файл:
 
 1. Вкладка **Actions** → последний успешный run `Build APK` → секция **Artifacts** → `sandbox-apk` (zip с APK внутри).
-2. Или вкладка **Releases** → релиз с файлом `Sandbox-...-debug.apk`.
+2. Или вкладка **Releases** → релиз `Sandbox — Android APK` с файлом `Sandbox-debug.apk`.
 
 APK подписан автоматически создаваемым debug-keystore, поэтому ставится на телефон/эмулятор сразу. Для установки может понадобиться разрешить «Установку из неизвестных источников» (это не Play Market).
 
